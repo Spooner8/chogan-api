@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import type { ExecutionContext } from '@nestjs/common';
+import { Request } from 'express';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prismaservice/prisma.service';
 import { UserModule } from './user/user.module';
@@ -28,8 +32,34 @@ import { DatabaseSetupService } from './database-setup/database-setup.service';
     PurchaseStatusModule,
     PurchaseModule,
     PurchaseItemModule,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    ThrottlerModule.forRoot([
+      {
+        name: 'short',
+        ttl: 1000,
+        limit: 3,
+        skipIf: (context: ExecutionContext) => {
+          const req = context.switchToHttp().getRequest<Request>();
+          return req.method === 'OPTIONS';
+        },
+      },
+      {
+        name: 'long',
+        ttl: 60000,
+        limit: 100,
+        skipIf: (context: ExecutionContext) => {
+          const req = context.switchToHttp().getRequest<Request>();
+          return req.method === 'OPTIONS';
+        },
+      },
+    ]),
   ],
   controllers: [],
-  providers: [PrismaService, DatabaseSetupService],
+  providers: [
+    PrismaService,
+    DatabaseSetupService,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+  ],
 })
 export class AppModule {}
