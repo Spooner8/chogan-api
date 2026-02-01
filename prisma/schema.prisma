@@ -14,8 +14,122 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  password String
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  items       Item[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Item {
+  id            String         @id @default(uuid())
+  code          String         @unique
+  name          String
+  description   String?
+  purchasePrice Float
+  salePrice     Float
+  inventory     Int            @default(0)
+  quantity      Float
+  unit          String
+  minimumStock  Int            @default(0)
+  categoryId    String
+  category      Category       @relation(fields: [categoryId], references: [id])
+  orderItems    OrderItem[]
+  purchaseItems PurchaseItem[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  firstname String
+  lastname  String?
+  email     String?   @unique
+  phone     String?
+  address   String?
+  zipcode   String?
+  city      String?
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderStatus {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  orders      Order[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  customerId    String
+  customer      Customer    @relation(fields: [customerId], references: [id])
+  orderStatusId String
+  orderStatus   OrderStatus @relation(fields: [orderStatusId], references: [id])
+  orderItems    OrderItem[]
+  deliveryDate  DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  itemId    String
+  item      Item     @relation(fields: [itemId], references: [id])
+  quantity  Float
+  discount  Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PurchaseStatus {
+  id          String     @id @default(uuid())
+  name        String     @unique
+  description String?
+  purchases   Purchase[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Purchase {
+  id               String         @id @default(uuid())
+  purchaseStatusId String
+  purchaseStatus   PurchaseStatus @relation(fields: [purchaseStatusId], references: [id])
+  deliveryDate     DateTime?
+  purchaseItems    PurchaseItem[]
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model PurchaseItem {
+  id         String   @id @default(uuid())
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  itemId     String
+  item       Item     @relation(fields: [itemId], references: [id])
+  quantity   Float
+  discount   Float    @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

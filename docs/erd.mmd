@@ -1,0 +1,109 @@
+erDiagram
+    Users {
+        id          String      PK
+        email       String
+        password    String
+        createdAt   DateTime
+        updatedAt   DateTime
+    }
+
+    Category {
+        id          String      PK
+        name        String
+        description String
+        createdAt   DateTime
+        updatedAt   DateTime
+    }
+
+    Item {
+        id              String      PK
+        code            String
+        name            String
+        description     String
+        purchasePrice   Float       "Net purchase price"
+        salePrice       Float       "Brutto sale price"
+        inventory       Int         "How many items are in stock"
+        quantity        Float       "Quantity per unit"
+        unit            String      "Unit of measurement"
+        minimumStock    Int         "Minimum stock level"
+        categoryId      String      FK
+        createdAt       DateTime
+        updatedAt       DateTime
+    }
+
+    Customer {
+        id          String      PK
+        firstname   String
+        lastname    String
+        email       String
+        phone       String
+        address     String
+        zipcode     String
+        city        String
+        createdAt   DateTime
+        updatedAt   DateTime
+    }
+
+    Purchase {
+        id                  String      PK
+        purchaseStatusId    String      FK
+        deliveryDate        DateTime
+        purchaseItems       PurchaseItem[]
+        createdAt           DateTime
+        updatedAt           DateTime
+    }
+
+    PurchaseItem {
+        id              String      PK
+        purchaseId      String      FK
+        itemId          String      FK
+        quantity        Float       "Purchased quantity"
+        discount        Float       "Discount percentage 0-100"
+        createdAt       DateTime
+        updatedAt       DateTime
+    }
+
+    PurchaseStatus {
+        id          String      PK
+        name        String
+        description String
+        createdAt   DateTime
+        updatedAt   DateTime
+    }
+
+    Order {
+        id              String      PK
+        customerId      String      FK
+        orderStatusId   String      FK
+        orderItems      OrderItem[]
+        deliveryDate    DateTime
+        createdAt       DateTime
+        updatedAt       DateTime
+    }
+
+    OrderItem {
+        id              String      PK
+        orderId         String      FK
+        itemId          String      FK
+        quantity        Float       "Ordered quantity"
+        discount        Float       "Discount percentage 0-100"
+        createdAt       DateTime
+        updatedAt       DateTime
+    }
+
+    OrderStatus {
+        id              String      PK
+        name            String
+        description     String
+        createdAt       DateTime
+        updatedAt       DateTime
+    }
+
+    Category ||--o{ Item : "has"
+    Customer ||--o{ Order : "places"
+    Purchase ||--o{ PurchaseItem : "contains"
+    Item ||--o{ PurchaseItem : "is in"
+    Order ||--o{ OrderItem : "contains"
+    Item ||--o{ OrderItem : "is in"
+    OrderStatus ||--o{ Order : "has"
+    PurchaseStatus ||--o{ Purchase : "has"

@@ -12,7 +12,7 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace"
+import type * as Prisma from "./prismaNamespace.js"
 
 
 const config: runtime.GetPrismaClientConfig = {
@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider     = \"prisma-client\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id       String @id @default(uuid())\n  email    String @unique\n  password String\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider     = \"prisma-client\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  email     String   @unique\n  password  String\n  role      Role     @default(USER)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Category {\n  id          String   @id @default(uuid())\n  name        String\n  description String?\n  items       Item[]\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Item {\n  id            String         @id @default(uuid())\n  code          String         @unique\n  name          String\n  description   String?\n  purchasePrice Float\n  salePrice     Float\n  inventory     Int            @default(0)\n  quantity      Float\n  unit          String\n  minimumStock  Int            @default(0)\n  categoryId    String\n  category      Category       @relation(fields: [categoryId], references: [id])\n  orderItems    OrderItem[]\n  purchaseItems PurchaseItem[]\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n}\n\nmodel Customer {\n  id        String   @id @default(uuid())\n  firstname String\n  lastname  String?\n  email     String?  @unique\n  phone     String?\n  address   String?\n  zipcode   String?\n  city      String?\n  orders    Order[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel OrderStatus {\n  id          String   @id @default(uuid())\n  name        String   @unique\n  description String?\n  orders      Order[]\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Order {\n  id            String      @id @default(uuid())\n  customerId    String\n  customer      Customer    @relation(fields: [customerId], references: [id])\n  orderStatusId String\n  orderStatus   OrderStatus @relation(fields: [orderStatusId], references: [id])\n  orderItems    OrderItem[]\n  deliveryDate  DateTime?\n  createdAt     DateTime    @default(now())\n  updatedAt     DateTime    @updatedAt\n}\n\nmodel OrderItem {\n  id        String   @id @default(uuid())\n  orderId   String\n  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)\n  itemId    String\n  item      Item     @relation(fields: [itemId], references: [id])\n  quantity  Float\n  discount  Float    @default(0)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel PurchaseStatus {\n  id          String     @id @default(uuid())\n  name        String     @unique\n  description String?\n  purchases   Purchase[]\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n}\n\nmodel Purchase {\n  id               String         @id @default(uuid())\n  purchaseStatusId String\n  purchaseStatus   PurchaseStatus @relation(fields: [purchaseStatusId], references: [id])\n  deliveryDate     DateTime?\n  purchaseItems    PurchaseItem[]\n  createdAt        DateTime       @default(now())\n  updatedAt        DateTime       @updatedAt\n}\n\nmodel PurchaseItem {\n  id         String   @id @default(uuid())\n  purchaseId String\n  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)\n  itemId     String\n  item       Item     @relation(fields: [itemId], references: [id])\n  quantity   Float\n  discount   Float    @default(0)\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"items\",\"kind\":\"object\",\"type\":\"Item\",\"relationName\":\"CategoryToItem\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Item\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"purchasePrice\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"salePrice\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"inventory\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"unit\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"minimumStock\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToItem\"},{\"name\":\"orderItems\",\"kind\":\"object\",\"type\":\"OrderItem\",\"relationName\":\"ItemToOrderItem\"},{\"name\":\"purchaseItems\",\"kind\":\"object\",\"type\":\"PurchaseItem\",\"relationName\":\"ItemToPurchaseItem\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Customer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"zipcode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"city\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orders\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"CustomerToOrder\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"OrderStatus\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orders\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToOrderStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customer\",\"kind\":\"object\",\"type\":\"Customer\",\"relationName\":\"CustomerToOrder\"},{\"name\":\"orderStatusId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orderStatus\",\"kind\":\"object\",\"type\":\"OrderStatus\",\"relationName\":\"OrderToOrderStatus\"},{\"name\":\"orderItems\",\"kind\":\"object\",\"type\":\"OrderItem\",\"relationName\":\"OrderToOrderItem\"},{\"name\":\"deliveryDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"OrderItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToOrderItem\"},{\"name\":\"itemId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"item\",\"kind\":\"object\",\"type\":\"Item\",\"relationName\":\"ItemToOrderItem\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"discount\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"PurchaseStatus\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"purchases\",\"kind\":\"object\",\"type\":\"Purchase\",\"relationName\":\"PurchaseToPurchaseStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Purchase\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"purchaseStatusId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"purchaseStatus\",\"kind\":\"object\",\"type\":\"PurchaseStatus\",\"relationName\":\"PurchaseToPurchaseStatus\"},{\"name\":\"deliveryDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"purchaseItems\",\"kind\":\"object\",\"type\":\"PurchaseItem\",\"relationName\":\"PurchaseToPurchaseItem\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"PurchaseItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"purchaseId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"purchase\",\"kind\":\"object\",\"type\":\"Purchase\",\"relationName\":\"PurchaseToPurchaseItem\"},{\"name\":\"itemId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"item\",\"kind\":\"object\",\"type\":\"Item\",\"relationName\":\"ItemToPurchaseItem\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"discount\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -185,6 +185,96 @@ export interface PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.category`: Exposes CRUD operations for the **Category** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Categories
+    * const categories = await prisma.category.findMany()
+    * ```
+    */
+  get category(): Prisma.CategoryDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.item`: Exposes CRUD operations for the **Item** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Items
+    * const items = await prisma.item.findMany()
+    * ```
+    */
+  get item(): Prisma.ItemDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.customer`: Exposes CRUD operations for the **Customer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Customers
+    * const customers = await prisma.customer.findMany()
+    * ```
+    */
+  get customer(): Prisma.CustomerDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.orderStatus`: Exposes CRUD operations for the **OrderStatus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrderStatuses
+    * const orderStatuses = await prisma.orderStatus.findMany()
+    * ```
+    */
+  get orderStatus(): Prisma.OrderStatusDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.order`: Exposes CRUD operations for the **Order** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Orders
+    * const orders = await prisma.order.findMany()
+    * ```
+    */
+  get order(): Prisma.OrderDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.orderItem`: Exposes CRUD operations for the **OrderItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrderItems
+    * const orderItems = await prisma.orderItem.findMany()
+    * ```
+    */
+  get orderItem(): Prisma.OrderItemDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.purchaseStatus`: Exposes CRUD operations for the **PurchaseStatus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PurchaseStatuses
+    * const purchaseStatuses = await prisma.purchaseStatus.findMany()
+    * ```
+    */
+  get purchaseStatus(): Prisma.PurchaseStatusDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.purchase`: Exposes CRUD operations for the **Purchase** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Purchases
+    * const purchases = await prisma.purchase.findMany()
+    * ```
+    */
+  get purchase(): Prisma.PurchaseDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.purchaseItem`: Exposes CRUD operations for the **PurchaseItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PurchaseItems
+    * const purchaseItems = await prisma.purchaseItem.findMany()
+    * ```
+    */
+  get purchaseItem(): Prisma.PurchaseItemDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

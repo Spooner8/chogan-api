@@ -14,12 +14,12 @@ import * as process from 'node:process'
 import * as path from 'node:path'
 
 import * as runtime from "@prisma/client/runtime/client"
-import * as $Enums from "./enums"
-import * as $Class from "./internal/class"
-import * as Prisma from "./internal/prismaNamespace"
+import * as $Enums from "./enums.js"
+import * as $Class from "./internal/class.js"
+import * as Prisma from "./internal/prismaNamespace.js"
 
-export * as $Enums from './enums'
-export * from "./enums"
+export * as $Enums from './enums.js'
+export * from "./enums.js"
 /**
  * ## Prisma Client
  * 
@@ -42,3 +42,48 @@ export { Prisma }
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model Item
+ * 
+ */
+export type Item = Prisma.ItemModel
+/**
+ * Model Customer
+ * 
+ */
+export type Customer = Prisma.CustomerModel
+/**
+ * Model OrderStatus
+ * 
+ */
+export type OrderStatus = Prisma.OrderStatusModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model PurchaseStatus
+ * 
+ */
+export type PurchaseStatus = Prisma.PurchaseStatusModel
+/**
+ * Model Purchase
+ * 
+ */
+export type Purchase = Prisma.PurchaseModel
+/**
+ * Model PurchaseItem
+ * 
+ */
+export type PurchaseItem = Prisma.PurchaseItemModel
