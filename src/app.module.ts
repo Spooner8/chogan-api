@@ -12,6 +12,7 @@ import { PurchaseStatusModule } from './purchase-status/purchase-status.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { PurchaseItemModule } from './purchase-item/purchase-item.module';
 import { AuthModule } from './auth/auth.module';
+import { DatabaseSetupService } from './database-setup/database-setup.service';
 
 @Module({
   imports: [
@@ -29,6 +30,6 @@ import { AuthModule } from './auth/auth.module';
     PurchaseItemModule,
   ],
   controllers: [],
-  providers: [PrismaService],
+  providers: [PrismaService, DatabaseSetupService],
 })
 export class AppModule {}
