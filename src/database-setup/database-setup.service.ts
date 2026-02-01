@@ -13,22 +13,25 @@ export class DatabaseSetupService implements OnModuleInit {
     private readonly configService: ConfigService,
   ) {}
 
-  async onModuleInit() {
-    await this.ensureAdminUserExists();
+  onModuleInit() {
+    // Warte kurz, damit PrismaService vollständig initialisiert ist
+    setTimeout(() => {
+      void this.ensureAdminUserExists();
+    }, 1000);
   }
 
   private async ensureAdminUserExists() {
+    const adminEmail = this.configService.get<string>('ADMIN_EMAIL');
+    const adminPassword = this.configService.get<string>('ADMIN_PASSWORD');
+
+    if (!adminEmail || !adminPassword) {
+      this.logger.warn(
+        'ADMIN_EMAIL or ADMIN_PASSWORD not defined in .env. Skipping admin user creation.',
+      );
+      return;
+    }
+
     try {
-      const adminEmail = this.configService.get<string>('ADMIN_EMAIL');
-      const adminPassword = this.configService.get<string>('ADMIN_PASSWORD');
-
-      if (!adminEmail || !adminPassword) {
-        this.logger.warn(
-          'ADMIN_EMAIL or ADMIN_PASSWORD not defined in .env. Skipping admin user creation.',
-        );
-        return;
-      }
-
       const existingAdmin = await this.db.user.findFirst({
         where: { role: Role.ADMIN },
       });
@@ -48,12 +51,12 @@ export class DatabaseSetupService implements OnModuleInit {
       });
 
       this.logger.log(
-        `Admin-User successfully created: ${admin.email} (ID: ${admin.id})`,
+        `Admin user successfully created: ${admin.email} (ID: ${admin.id})`,
       );
     } catch (error) {
       this.logger.error(
         'Error creating admin user:',
-        error instanceof Error ? error.message : error,
+        error instanceof Error ? error.stack : error,
       );
     }
   }
