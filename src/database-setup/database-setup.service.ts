@@ -14,7 +14,6 @@ export class DatabaseSetupService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    // Warte kurz, damit PrismaService vollständig initialisiert ist
     setTimeout(() => {
       void this.ensureAdminUserExists();
     }, 1000);
