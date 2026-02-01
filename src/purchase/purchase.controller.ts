@@ -8,15 +8,34 @@ import {
   Post,
 } from '@nestjs/common';
 import { PurchaseService } from './purchase.service';
-import type {
-  PurchaseCreateInput,
-  PurchaseUpdateInput,
-} from 'src/generated/prisma/models';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/generated/prisma/enums';
 import { UseGuards } from '@nestjs/common';
+
+interface PurchaseItem {
+  itemId: string;
+  quantity: number;
+  price: number;
+  discount?: number;
+}
+
+interface CreatePurchaseDto {
+  deliveryDate?: Date | string;
+  purchaseStatusId: string;
+  customsDuty?: number;
+  shippingCost?: number;
+  items?: PurchaseItem[];
+}
+
+interface UpdatePurchaseDto {
+  deliveryDate?: Date | string;
+  purchaseStatusId?: string;
+  customsDuty?: number;
+  shippingCost?: number;
+  items?: PurchaseItem[];
+}
 
 @Controller('purchase')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -25,7 +44,7 @@ export class PurchaseController {
   constructor(private readonly purchaseService: PurchaseService) {}
 
   @Post()
-  async create(@Body() createPurchaseDto: PurchaseCreateInput) {
+  async create(@Body() createPurchaseDto: CreatePurchaseDto) {
     return await this.purchaseService.create(createPurchaseDto);
   }
 
@@ -42,7 +61,7 @@ export class PurchaseController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updatePurchaseDto: PurchaseUpdateInput,
+    @Body() updatePurchaseDto: UpdatePurchaseDto,
   ) {
     return await this.purchaseService.update(id, updatePurchaseDto);
   }

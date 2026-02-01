@@ -103,6 +103,7 @@ model OrderItem {
   itemId    String
   item      Item     @relation(fields: [itemId], references: [id])
   quantity  Float
+  price     Float
   discount  Float    @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -121,6 +122,8 @@ model PurchaseStatus {
 model Purchase {
   id               String         @id @default(uuid())
   purchaseStatusId String
+  customsDuty      Float          @default(0)
+  shippingCost     Float          @default(0)
   purchaseStatus   PurchaseStatus @relation(fields: [purchaseStatusId], references: [id])
   deliveryDate     DateTime?
   purchaseItems    PurchaseItem[]
@@ -135,6 +138,7 @@ model PurchaseItem {
   itemId     String
   item       Item     @relation(fields: [itemId], references: [id])
   quantity   Float
+  price      Float
   discount   Float    @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

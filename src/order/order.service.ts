@@ -1,16 +1,58 @@
 import { Injectable } from '@nestjs/common';
-import {
-  OrderCreateInput,
-  OrderUpdateInput,
-} from 'src/generated/prisma/models';
 import { PrismaService } from 'src/prismaservice/prisma.service';
+
+interface OrderItem {
+  itemId: string;
+  quantity: number;
+  price: number;
+  discount?: number;
+}
+
+interface CreateOrderDto {
+  customerId: string;
+  orderStatusId: string;
+  deliveryDate?: Date | string;
+  items?: OrderItem[];
+}
+
+interface UpdateOrderDto {
+  customerId?: string;
+  orderStatusId?: string;
+  deliveryDate?: Date | string;
+  items?: OrderItem[];
+}
 
 @Injectable()
 export class OrderService {
   constructor(private db: PrismaService) {}
 
-  async create(createOrderDto: OrderCreateInput) {
-    return await this.db.order.create({ data: createOrderDto });
+  async create(createOrderDto: CreateOrderDto) {
+    const { items, ...orderData } = createOrderDto;
+
+    return await this.db.order.create({
+      data: {
+        ...orderData,
+        orderItems: items
+          ? {
+              create: items.map((item) => ({
+                itemId: item.itemId,
+                quantity: item.quantity,
+                price: item.price,
+                discount: item.discount || 0,
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        customer: true,
+        orderStatus: true,
+        orderItems: {
+          include: {
+            item: true,
+          },
+        },
+      },
+    });
   }
 
   async findAll() {
@@ -34,10 +76,34 @@ export class OrderService {
     });
   }
 
-  async update(id: string, updateOrderDto: OrderUpdateInput) {
+  async update(id: string, updateOrderDto: UpdateOrderDto) {
+    const { items, ...orderData } = updateOrderDto;
+
     return await this.db.order.update({
       where: { id },
-      data: updateOrderDto,
+      data: {
+        ...orderData,
+        orderItems: items
+          ? {
+              deleteMany: {},
+              create: items.map((item) => ({
+                itemId: item.itemId,
+                quantity: item.quantity,
+                price: item.price,
+                discount: item.discount || 0,
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        customer: true,
+        orderStatus: true,
+        orderItems: {
+          include: {
+            item: true,
+          },
+        },
+      },
     });
   }
 

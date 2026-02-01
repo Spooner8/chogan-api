@@ -8,15 +8,32 @@ import {
   Post,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
-import type {
-  OrderCreateInput,
-  OrderUpdateInput,
-} from 'src/generated/prisma/models';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/generated/prisma/enums';
 import { UseGuards } from '@nestjs/common';
+
+interface OrderItem {
+  itemId: string;
+  quantity: number;
+  price: number;
+  discount?: number;
+}
+
+interface CreateOrderDto {
+  customerId: string;
+  orderStatusId: string;
+  deliveryDate?: Date | string;
+  items?: OrderItem[];
+}
+
+interface UpdateOrderDto {
+  customerId?: string;
+  orderStatusId?: string;
+  deliveryDate?: Date | string;
+  items?: OrderItem[];
+}
 
 @Controller('order')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -25,7 +42,7 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  async create(@Body() createOrderDto: OrderCreateInput) {
+  async create(@Body() createOrderDto: CreateOrderDto) {
     return await this.orderService.create(createOrderDto);
   }
 
@@ -42,7 +59,7 @@ export class OrderController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateOrderDto: OrderUpdateInput,
+    @Body() updateOrderDto: UpdateOrderDto,
   ) {
     return await this.orderService.update(id, updateOrderDto);
   }

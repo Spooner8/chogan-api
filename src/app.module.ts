@@ -37,7 +37,7 @@ import { DatabaseSetupService } from './database-setup/database-setup.service';
       {
         name: 'short',
         ttl: 1000,
-        limit: 3,
+        limit: 5,
         skipIf: (context: ExecutionContext) => {
           const req = context.switchToHttp().getRequest<Request>();
           return req.method === 'OPTIONS';
