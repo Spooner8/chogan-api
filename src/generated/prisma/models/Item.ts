@@ -53,7 +53,9 @@ export type ItemMinAggregateOutputType = {
   quantity: number | null
   unit: string | null
   minimumStock: number | null
+  expiring: boolean | null
   categoryId: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -69,7 +71,9 @@ export type ItemMaxAggregateOutputType = {
   quantity: number | null
   unit: string | null
   minimumStock: number | null
+  expiring: boolean | null
   categoryId: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -85,7 +89,9 @@ export type ItemCountAggregateOutputType = {
   quantity: number
   unit: number
   minimumStock: number
+  expiring: number
   categoryId: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -119,7 +125,9 @@ export type ItemMinAggregateInputType = {
   quantity?: true
   unit?: true
   minimumStock?: true
+  expiring?: true
   categoryId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -135,7 +143,9 @@ export type ItemMaxAggregateInputType = {
   quantity?: true
   unit?: true
   minimumStock?: true
+  expiring?: true
   categoryId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -151,7 +161,9 @@ export type ItemCountAggregateInputType = {
   quantity?: true
   unit?: true
   minimumStock?: true
+  expiring?: true
   categoryId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -254,7 +266,9 @@ export type ItemGroupByOutputType = {
   quantity: number
   unit: string
   minimumStock: number
+  expiring: boolean
   categoryId: string
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ItemCountAggregateOutputType | null
@@ -293,7 +307,9 @@ export type ItemWhereInput = {
   quantity?: Prisma.FloatFilter<"Item"> | number
   unit?: Prisma.StringFilter<"Item"> | string
   minimumStock?: Prisma.IntFilter<"Item"> | number
+  expiring?: Prisma.BoolFilter<"Item"> | boolean
   categoryId?: Prisma.StringFilter<"Item"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
@@ -312,7 +328,9 @@ export type ItemOrderByWithRelationInput = {
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   minimumStock?: Prisma.SortOrder
+  expiring?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   category?: Prisma.CategoryOrderByWithRelationInput
@@ -334,7 +352,9 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   quantity?: Prisma.FloatFilter<"Item"> | number
   unit?: Prisma.StringFilter<"Item"> | string
   minimumStock?: Prisma.IntFilter<"Item"> | number
+  expiring?: Prisma.BoolFilter<"Item"> | boolean
   categoryId?: Prisma.StringFilter<"Item"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
@@ -353,7 +373,9 @@ export type ItemOrderByWithAggregationInput = {
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   minimumStock?: Prisma.SortOrder
+  expiring?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ItemCountOrderByAggregateInput
@@ -377,7 +399,9 @@ export type ItemScalarWhereWithAggregatesInput = {
   quantity?: Prisma.FloatWithAggregatesFilter<"Item"> | number
   unit?: Prisma.StringWithAggregatesFilter<"Item"> | string
   minimumStock?: Prisma.IntWithAggregatesFilter<"Item"> | number
+  expiring?: Prisma.BoolWithAggregatesFilter<"Item"> | boolean
   categoryId?: Prisma.StringWithAggregatesFilter<"Item"> | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
 }
@@ -393,6 +417,8 @@ export type ItemCreateInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   category: Prisma.CategoryCreateNestedOneWithoutItemsInput
@@ -411,7 +437,9 @@ export type ItemUncheckedCreateInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
   categoryId: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutItemInput
@@ -429,6 +457,8 @@ export type ItemUpdateInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.CategoryUpdateOneRequiredWithoutItemsNestedInput
@@ -447,7 +477,9 @@ export type ItemUncheckedUpdateInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutItemNestedInput
@@ -465,7 +497,9 @@ export type ItemCreateManyInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
   categoryId: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -481,6 +515,8 @@ export type ItemUpdateManyMutationInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -496,7 +532,9 @@ export type ItemUncheckedUpdateManyInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -522,7 +560,9 @@ export type ItemCountOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   minimumStock?: Prisma.SortOrder
+  expiring?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -546,7 +586,9 @@ export type ItemMaxOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   minimumStock?: Prisma.SortOrder
+  expiring?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -562,7 +604,9 @@ export type ItemMinOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   minimumStock?: Prisma.SortOrder
+  expiring?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -638,6 +682,10 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type ItemCreateNestedOneWithoutOrderItemsInput = {
   create?: Prisma.XOR<Prisma.ItemCreateWithoutOrderItemsInput, Prisma.ItemUncheckedCreateWithoutOrderItemsInput>
   connectOrCreate?: Prisma.ItemCreateOrConnectWithoutOrderItemsInput
@@ -677,6 +725,8 @@ export type ItemCreateWithoutCategoryInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutItemInput
@@ -694,6 +744,8 @@ export type ItemUncheckedCreateWithoutCategoryInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutItemInput
@@ -740,7 +792,9 @@ export type ItemScalarWhereInput = {
   quantity?: Prisma.FloatFilter<"Item"> | number
   unit?: Prisma.StringFilter<"Item"> | string
   minimumStock?: Prisma.IntFilter<"Item"> | number
+  expiring?: Prisma.BoolFilter<"Item"> | boolean
   categoryId?: Prisma.StringFilter<"Item"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
 }
@@ -756,6 +810,8 @@ export type ItemCreateWithoutOrderItemsInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   category: Prisma.CategoryCreateNestedOneWithoutItemsInput
@@ -773,7 +829,9 @@ export type ItemUncheckedCreateWithoutOrderItemsInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
   categoryId: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutItemInput
@@ -806,6 +864,8 @@ export type ItemUpdateWithoutOrderItemsInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.CategoryUpdateOneRequiredWithoutItemsNestedInput
@@ -823,7 +883,9 @@ export type ItemUncheckedUpdateWithoutOrderItemsInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutItemNestedInput
@@ -840,6 +902,8 @@ export type ItemCreateWithoutPurchaseItemsInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   category: Prisma.CategoryCreateNestedOneWithoutItemsInput
@@ -857,7 +921,9 @@ export type ItemUncheckedCreateWithoutPurchaseItemsInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
   categoryId: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutItemInput
@@ -890,6 +956,8 @@ export type ItemUpdateWithoutPurchaseItemsInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.CategoryUpdateOneRequiredWithoutItemsNestedInput
@@ -907,7 +975,9 @@ export type ItemUncheckedUpdateWithoutPurchaseItemsInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutItemNestedInput
@@ -924,6 +994,8 @@ export type ItemCreateManyCategoryInput = {
   quantity: number
   unit: string
   minimumStock?: number
+  expiring?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -939,6 +1011,8 @@ export type ItemUpdateWithoutCategoryInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUpdateManyWithoutItemNestedInput
@@ -956,6 +1030,8 @@ export type ItemUncheckedUpdateWithoutCategoryInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutItemNestedInput
@@ -973,6 +1049,8 @@ export type ItemUncheckedUpdateManyWithoutCategoryInput = {
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   minimumStock?: Prisma.IntFieldUpdateOperationsInput | number
+  expiring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1028,7 +1106,9 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   quantity?: boolean
   unit?: boolean
   minimumStock?: boolean
+  expiring?: boolean
   categoryId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
@@ -1048,7 +1128,9 @@ export type ItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   quantity?: boolean
   unit?: boolean
   minimumStock?: boolean
+  expiring?: boolean
   categoryId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
@@ -1065,7 +1147,9 @@ export type ItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   quantity?: boolean
   unit?: boolean
   minimumStock?: boolean
+  expiring?: boolean
   categoryId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
@@ -1082,12 +1166,14 @@ export type ItemSelectScalar = {
   quantity?: boolean
   unit?: boolean
   minimumStock?: boolean
+  expiring?: boolean
   categoryId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "purchasePrice" | "salePrice" | "inventory" | "quantity" | "unit" | "minimumStock" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["item"]>
+export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "purchasePrice" | "salePrice" | "inventory" | "quantity" | "unit" | "minimumStock" | "expiring" | "categoryId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   orderItems?: boolean | Prisma.Item$orderItemsArgs<ExtArgs>
@@ -1119,7 +1205,9 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     quantity: number
     unit: string
     minimumStock: number
+    expiring: boolean
     categoryId: string
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["item"]>
@@ -1558,7 +1646,9 @@ export interface ItemFieldRefs {
   readonly quantity: Prisma.FieldRef<"Item", 'Float'>
   readonly unit: Prisma.FieldRef<"Item", 'String'>
   readonly minimumStock: Prisma.FieldRef<"Item", 'Int'>
+  readonly expiring: Prisma.FieldRef<"Item", 'Boolean'>
   readonly categoryId: Prisma.FieldRef<"Item", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"Item", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Item", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Item", 'DateTime'>
 }

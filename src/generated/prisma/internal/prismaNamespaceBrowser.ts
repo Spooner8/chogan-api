@@ -95,6 +95,7 @@ export const CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -113,7 +114,9 @@ export const ItemScalarFieldEnum = {
   quantity: 'quantity',
   unit: 'unit',
   minimumStock: 'minimumStock',
+  expiring: 'expiring',
   categoryId: 'categoryId',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -130,6 +133,7 @@ export const CustomerScalarFieldEnum = {
   address: 'address',
   zipcode: 'zipcode',
   city: 'city',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -141,6 +145,7 @@ export const OrderStatusScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -177,6 +182,7 @@ export const PurchaseStatusScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

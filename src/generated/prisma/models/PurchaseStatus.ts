@@ -28,6 +28,7 @@ export type PurchaseStatusMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,6 +37,7 @@ export type PurchaseStatusMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +46,7 @@ export type PurchaseStatusCountAggregateOutputType = {
   id: number
   name: number
   description: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -54,6 +57,7 @@ export type PurchaseStatusMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -62,6 +66,7 @@ export type PurchaseStatusMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -70,6 +75,7 @@ export type PurchaseStatusCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -151,6 +157,7 @@ export type PurchaseStatusGroupByOutputType = {
   id: string
   name: string
   description: string | null
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PurchaseStatusCountAggregateOutputType | null
@@ -180,6 +187,7 @@ export type PurchaseStatusWhereInput = {
   id?: Prisma.StringFilter<"PurchaseStatus"> | string
   name?: Prisma.StringFilter<"PurchaseStatus"> | string
   description?: Prisma.StringNullableFilter<"PurchaseStatus"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"PurchaseStatus"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PurchaseStatus"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PurchaseStatus"> | Date | string
   purchases?: Prisma.PurchaseListRelationFilter
@@ -189,6 +197,7 @@ export type PurchaseStatusOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   purchases?: Prisma.PurchaseOrderByRelationAggregateInput
@@ -201,6 +210,7 @@ export type PurchaseStatusWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PurchaseStatusWhereInput[]
   NOT?: Prisma.PurchaseStatusWhereInput | Prisma.PurchaseStatusWhereInput[]
   description?: Prisma.StringNullableFilter<"PurchaseStatus"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"PurchaseStatus"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PurchaseStatus"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PurchaseStatus"> | Date | string
   purchases?: Prisma.PurchaseListRelationFilter
@@ -210,6 +220,7 @@ export type PurchaseStatusOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PurchaseStatusCountOrderByAggregateInput
@@ -224,6 +235,7 @@ export type PurchaseStatusScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"PurchaseStatus"> | string
   name?: Prisma.StringWithAggregatesFilter<"PurchaseStatus"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"PurchaseStatus"> | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PurchaseStatus"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PurchaseStatus"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PurchaseStatus"> | Date | string
 }
@@ -232,6 +244,7 @@ export type PurchaseStatusCreateInput = {
   id?: string
   name: string
   description?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   purchases?: Prisma.PurchaseCreateNestedManyWithoutPurchaseStatusInput
@@ -241,6 +254,7 @@ export type PurchaseStatusUncheckedCreateInput = {
   id?: string
   name: string
   description?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutPurchaseStatusInput
@@ -250,6 +264,7 @@ export type PurchaseStatusUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchases?: Prisma.PurchaseUpdateManyWithoutPurchaseStatusNestedInput
@@ -259,6 +274,7 @@ export type PurchaseStatusUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutPurchaseStatusNestedInput
@@ -268,6 +284,7 @@ export type PurchaseStatusCreateManyInput = {
   id?: string
   name: string
   description?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -276,6 +293,7 @@ export type PurchaseStatusUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -284,6 +302,7 @@ export type PurchaseStatusUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -292,6 +311,7 @@ export type PurchaseStatusCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -300,6 +320,7 @@ export type PurchaseStatusMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -308,6 +329,7 @@ export type PurchaseStatusMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -335,6 +357,7 @@ export type PurchaseStatusCreateWithoutPurchasesInput = {
   id?: string
   name: string
   description?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -343,6 +366,7 @@ export type PurchaseStatusUncheckedCreateWithoutPurchasesInput = {
   id?: string
   name: string
   description?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -367,6 +391,7 @@ export type PurchaseStatusUpdateWithoutPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -375,6 +400,7 @@ export type PurchaseStatusUncheckedUpdateWithoutPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -414,6 +440,7 @@ export type PurchaseStatusSelect<ExtArgs extends runtime.Types.Extensions.Intern
   id?: boolean
   name?: boolean
   description?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   purchases?: boolean | Prisma.PurchaseStatus$purchasesArgs<ExtArgs>
@@ -424,6 +451,7 @@ export type PurchaseStatusSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   name?: boolean
   description?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["purchaseStatus"]>
@@ -432,6 +460,7 @@ export type PurchaseStatusSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   name?: boolean
   description?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["purchaseStatus"]>
@@ -440,11 +469,12 @@ export type PurchaseStatusSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PurchaseStatusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["purchaseStatus"]>
+export type PurchaseStatusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["purchaseStatus"]>
 export type PurchaseStatusInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   purchases?: boolean | Prisma.PurchaseStatus$purchasesArgs<ExtArgs>
   _count?: boolean | Prisma.PurchaseStatusCountOutputTypeDefaultArgs<ExtArgs>
@@ -461,6 +491,7 @@ export type $PurchaseStatusPayload<ExtArgs extends runtime.Types.Extensions.Inte
     id: string
     name: string
     description: string | null
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["purchaseStatus"]>
@@ -890,6 +921,7 @@ export interface PurchaseStatusFieldRefs {
   readonly id: Prisma.FieldRef<"PurchaseStatus", 'String'>
   readonly name: Prisma.FieldRef<"PurchaseStatus", 'String'>
   readonly description: Prisma.FieldRef<"PurchaseStatus", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"PurchaseStatus", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"PurchaseStatus", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PurchaseStatus", 'DateTime'>
 }

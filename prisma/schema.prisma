@@ -29,12 +29,13 @@ model User {
 }
 
 model Category {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
   description String?
   items       Item[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Item {
@@ -48,16 +49,18 @@ model Item {
   quantity      Float
   unit          String
   minimumStock  Int            @default(0)
+  expiring      Boolean        @default(false)
   categoryId    String
   category      Category       @relation(fields: [categoryId], references: [id])
   orderItems    OrderItem[]
   purchaseItems PurchaseItem[]
+  deletedAt     DateTime?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
 
 model Customer {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   firstname String
   lastname  String?
   email     String?   @unique
@@ -66,17 +69,19 @@ model Customer {
   zipcode   String?
   city      String?
   orders    Order[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model OrderStatus {
-  id          String   @id @default(uuid())
-  name        String   @unique
+  id          String    @id @default(uuid())
+  name        String    @unique
   description String?
   orders      Order[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Order {
@@ -108,6 +113,7 @@ model PurchaseStatus {
   name        String     @unique
   description String?
   purchases   Purchase[]
+  deletedAt   DateTime?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
