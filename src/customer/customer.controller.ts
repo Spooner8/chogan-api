@@ -12,8 +12,15 @@ import type {
   CustomerCreateInput,
   CustomerUpdateInput,
 } from 'src/generated/prisma/models';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from 'src/generated/prisma/enums';
+import { UseGuards } from '@nestjs/common';
 
 @Controller('customer')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(Role.ADMIN, Role.USER)
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 

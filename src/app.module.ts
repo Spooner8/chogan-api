@@ -11,10 +11,12 @@ import { OrderItemModule } from './order-item/order-item.module';
 import { PurchaseStatusModule } from './purchase-status/purchase-status.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { PurchaseItemModule } from './purchase-item/purchase-item.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    AuthModule,
     UserModule,
     CategoryModule,
     ItemModule,

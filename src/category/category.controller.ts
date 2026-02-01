@@ -1,11 +1,25 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CategoryService } from './category.service';
 import type {
   CategoryCreateInput,
   CategoryUpdateInput,
 } from 'src/generated/prisma/models';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from 'src/generated/prisma/enums';
 
 @Controller('category')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(Role.ADMIN, Role.USER)
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
