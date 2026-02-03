@@ -13,29 +13,30 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/generated/prisma/enums';
 import { UseGuards } from '@nestjs/common';
+import type {
+  PurchaseUncheckedCreateInput,
+  PurchaseUncheckedUpdateInput,
+} from 'src/generated/prisma/models/Purchase';
 
-interface PurchaseItem {
-  itemId: string;
-  quantity: number;
-  price: number;
-  discount?: number;
-}
+type CreatePurchaseDto = Omit<PurchaseUncheckedCreateInput, 'purchaseItems'> & {
+  items?: Array<{
+    itemId: string;
+    quantity: number;
+    price: number;
+    discount?: number;
+  }>;
+};
 
-interface CreatePurchaseDto {
-  deliveryDate?: Date | string;
-  purchaseStatusId: string;
-  customsDuty?: number;
-  shippingCost?: number;
-  items?: PurchaseItem[];
-}
-
-interface UpdatePurchaseDto {
-  deliveryDate?: Date | string;
-  purchaseStatusId?: string;
-  customsDuty?: number;
-  shippingCost?: number;
-  items?: PurchaseItem[];
-}
+type UpdatePurchaseDto = Partial<
+  Omit<PurchaseUncheckedUpdateInput, 'purchaseItems'>
+> & {
+  items?: Array<{
+    itemId: string;
+    quantity: number;
+    price: number;
+    discount?: number;
+  }>;
+};
 
 @Controller('purchase')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -69,5 +70,17 @@ export class PurchaseController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.purchaseService.remove(id);
+  }
+
+  @Post(':id/book')
+  @Roles(Role.ADMIN)
+  async bookPurchase(@Param('id') id: string) {
+    return await this.purchaseService.bookPurchase(id);
+  }
+
+  @Post(':id/unbook')
+  @Roles(Role.ADMIN)
+  async unbookPurchase(@Param('id') id: string) {
+    return await this.purchaseService.unbookPurchase(id);
   }
 }

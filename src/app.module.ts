@@ -32,7 +32,7 @@ import { DatabaseSetupService } from './database-setup/database-setup.service';
     PurchaseStatusModule,
     PurchaseModule,
     PurchaseItemModule,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     ThrottlerModule.forRoot([
       {
         name: 'short',
@@ -58,7 +58,7 @@ import { DatabaseSetupService } from './database-setup/database-setup.service';
   providers: [
     PrismaService,
     DatabaseSetupService,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })

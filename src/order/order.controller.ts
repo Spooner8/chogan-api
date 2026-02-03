@@ -13,27 +13,28 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/generated/prisma/enums';
 import { UseGuards } from '@nestjs/common';
+import type {
+  OrderUncheckedCreateInput,
+  OrderUncheckedUpdateInput,
+} from 'src/generated/prisma/models/Order';
 
-interface OrderItem {
-  itemId: string;
-  quantity: number;
-  price: number;
-  discount?: number;
-}
+type CreateOrderDto = Omit<OrderUncheckedCreateInput, 'orderItems'> & {
+  items?: Array<{
+    itemId: string;
+    quantity: number;
+    price: number;
+    discount?: number;
+  }>;
+};
 
-interface CreateOrderDto {
-  customerId: string;
-  orderStatusId: string;
-  deliveryDate?: Date | string;
-  items?: OrderItem[];
-}
-
-interface UpdateOrderDto {
-  customerId?: string;
-  orderStatusId?: string;
-  deliveryDate?: Date | string;
-  items?: OrderItem[];
-}
+type UpdateOrderDto = Partial<Omit<OrderUncheckedUpdateInput, 'orderItems'>> & {
+  items?: Array<{
+    itemId: string;
+    quantity: number;
+    price: number;
+    discount?: number;
+  }>;
+};
 
 @Controller('order')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -67,5 +68,17 @@ export class OrderController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.orderService.remove(id);
+  }
+
+  @Post(':id/book')
+  @Roles(Role.ADMIN)
+  async bookOrder(@Param('id') id: string) {
+    return await this.orderService.bookOrder(id);
+  }
+
+  @Post(':id/unbook')
+  @Roles(Role.ADMIN)
+  async unbookOrder(@Param('id') id: string) {
+    return await this.orderService.unbookOrder(id);
   }
 }

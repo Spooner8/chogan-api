@@ -29,6 +29,7 @@ export type OrderMinAggregateOutputType = {
   customerId: string | null
   orderStatusId: string | null
   deliveryDate: Date | null
+  bookedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,6 +39,7 @@ export type OrderMaxAggregateOutputType = {
   customerId: string | null
   orderStatusId: string | null
   deliveryDate: Date | null
+  bookedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,6 +49,7 @@ export type OrderCountAggregateOutputType = {
   customerId: number
   orderStatusId: number
   deliveryDate: number
+  bookedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -58,6 +61,7 @@ export type OrderMinAggregateInputType = {
   customerId?: true
   orderStatusId?: true
   deliveryDate?: true
+  bookedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -67,6 +71,7 @@ export type OrderMaxAggregateInputType = {
   customerId?: true
   orderStatusId?: true
   deliveryDate?: true
+  bookedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -76,6 +81,7 @@ export type OrderCountAggregateInputType = {
   customerId?: true
   orderStatusId?: true
   deliveryDate?: true
+  bookedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -158,6 +164,7 @@ export type OrderGroupByOutputType = {
   customerId: string
   orderStatusId: string
   deliveryDate: Date | null
+  bookedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: OrderCountAggregateOutputType | null
@@ -188,6 +195,7 @@ export type OrderWhereInput = {
   customerId?: Prisma.StringFilter<"Order"> | string
   orderStatusId?: Prisma.StringFilter<"Order"> | string
   deliveryDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  bookedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
@@ -200,6 +208,7 @@ export type OrderOrderByWithRelationInput = {
   customerId?: Prisma.SortOrder
   orderStatusId?: Prisma.SortOrder
   deliveryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  bookedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   customer?: Prisma.CustomerOrderByWithRelationInput
@@ -215,6 +224,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   customerId?: Prisma.StringFilter<"Order"> | string
   orderStatusId?: Prisma.StringFilter<"Order"> | string
   deliveryDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  bookedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
@@ -227,6 +237,7 @@ export type OrderOrderByWithAggregationInput = {
   customerId?: Prisma.SortOrder
   orderStatusId?: Prisma.SortOrder
   deliveryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  bookedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.OrderCountOrderByAggregateInput
@@ -242,6 +253,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   customerId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   orderStatusId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   deliveryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  bookedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
 }
@@ -249,6 +261,7 @@ export type OrderScalarWhereWithAggregatesInput = {
 export type OrderCreateInput = {
   id?: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
@@ -261,6 +274,7 @@ export type OrderUncheckedCreateInput = {
   customerId: string
   orderStatusId: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -269,6 +283,7 @@ export type OrderUncheckedCreateInput = {
 export type OrderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
@@ -281,6 +296,7 @@ export type OrderUncheckedUpdateInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   orderStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -291,6 +307,7 @@ export type OrderCreateManyInput = {
   customerId: string
   orderStatusId: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -298,6 +315,7 @@ export type OrderCreateManyInput = {
 export type OrderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -307,6 +325,7 @@ export type OrderUncheckedUpdateManyInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   orderStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -326,6 +345,7 @@ export type OrderCountOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   orderStatusId?: Prisma.SortOrder
   deliveryDate?: Prisma.SortOrder
+  bookedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -335,6 +355,7 @@ export type OrderMaxOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   orderStatusId?: Prisma.SortOrder
   deliveryDate?: Prisma.SortOrder
+  bookedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -344,6 +365,7 @@ export type OrderMinOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   orderStatusId?: Prisma.SortOrder
   deliveryDate?: Prisma.SortOrder
+  bookedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -454,6 +476,7 @@ export type OrderUpdateOneRequiredWithoutOrderItemsNestedInput = {
 export type OrderCreateWithoutCustomerInput = {
   id?: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderStatus: Prisma.OrderStatusCreateNestedOneWithoutOrdersInput
@@ -464,6 +487,7 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   id?: string
   orderStatusId: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -503,6 +527,7 @@ export type OrderScalarWhereInput = {
   customerId?: Prisma.StringFilter<"Order"> | string
   orderStatusId?: Prisma.StringFilter<"Order"> | string
   deliveryDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  bookedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
 }
@@ -510,6 +535,7 @@ export type OrderScalarWhereInput = {
 export type OrderCreateWithoutOrderStatusInput = {
   id?: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
@@ -520,6 +546,7 @@ export type OrderUncheckedCreateWithoutOrderStatusInput = {
   id?: string
   customerId: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -554,6 +581,7 @@ export type OrderUpdateManyWithWhereWithoutOrderStatusInput = {
 export type OrderCreateWithoutOrderItemsInput = {
   id?: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
@@ -565,6 +593,7 @@ export type OrderUncheckedCreateWithoutOrderItemsInput = {
   customerId: string
   orderStatusId: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -588,6 +617,7 @@ export type OrderUpdateToOneWithWhereWithoutOrderItemsInput = {
 export type OrderUpdateWithoutOrderItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
@@ -599,6 +629,7 @@ export type OrderUncheckedUpdateWithoutOrderItemsInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   orderStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -607,6 +638,7 @@ export type OrderCreateManyCustomerInput = {
   id?: string
   orderStatusId: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -614,6 +646,7 @@ export type OrderCreateManyCustomerInput = {
 export type OrderUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderStatus?: Prisma.OrderStatusUpdateOneRequiredWithoutOrdersNestedInput
@@ -624,6 +657,7 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -633,6 +667,7 @@ export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -641,6 +676,7 @@ export type OrderCreateManyOrderStatusInput = {
   id?: string
   customerId: string
   deliveryDate?: Date | string | null
+  bookedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -648,6 +684,7 @@ export type OrderCreateManyOrderStatusInput = {
 export type OrderUpdateWithoutOrderStatusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
@@ -658,6 +695,7 @@ export type OrderUncheckedUpdateWithoutOrderStatusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -667,6 +705,7 @@ export type OrderUncheckedUpdateManyWithoutOrderStatusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -707,6 +746,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   customerId?: boolean
   orderStatusId?: boolean
   deliveryDate?: boolean
+  bookedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -720,6 +760,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   customerId?: boolean
   orderStatusId?: boolean
   deliveryDate?: boolean
+  bookedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -731,6 +772,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   customerId?: boolean
   orderStatusId?: boolean
   deliveryDate?: boolean
+  bookedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -742,11 +784,12 @@ export type OrderSelectScalar = {
   customerId?: boolean
   orderStatusId?: boolean
   deliveryDate?: boolean
+  bookedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerId" | "orderStatusId" | "deliveryDate" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerId" | "orderStatusId" | "deliveryDate" | "bookedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   orderStatus?: boolean | Prisma.OrderStatusDefaultArgs<ExtArgs>
@@ -774,6 +817,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     customerId: string
     orderStatusId: string
     deliveryDate: Date | null
+    bookedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["order"]>
@@ -1206,6 +1250,7 @@ export interface OrderFieldRefs {
   readonly customerId: Prisma.FieldRef<"Order", 'String'>
   readonly orderStatusId: Prisma.FieldRef<"Order", 'String'>
   readonly deliveryDate: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly bookedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>
 }
