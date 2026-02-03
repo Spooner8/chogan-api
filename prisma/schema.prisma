@@ -111,7 +111,7 @@ model PurchaseStatus {
 
 model Purchase {
   id               String         @id @default(uuid())
-  purchaseNumber   String         @unique
+  purchaseNumber   String?        @unique
   purchaseStatusId String
   deliveryDate     DateTime?
   bookedAt         DateTime?

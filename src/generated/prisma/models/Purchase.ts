@@ -209,7 +209,7 @@ export type PurchaseGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type PurchaseGroupByOutputType = {
   id: string
-  purchaseNumber: string
+  purchaseNumber: string | null
   purchaseStatusId: string
   deliveryDate: Date | null
   bookedAt: Date | null
@@ -244,7 +244,7 @@ export type PurchaseWhereInput = {
   OR?: Prisma.PurchaseWhereInput[]
   NOT?: Prisma.PurchaseWhereInput | Prisma.PurchaseWhereInput[]
   id?: Prisma.StringFilter<"Purchase"> | string
-  purchaseNumber?: Prisma.StringFilter<"Purchase"> | string
+  purchaseNumber?: Prisma.StringNullableFilter<"Purchase"> | string | null
   purchaseStatusId?: Prisma.StringFilter<"Purchase"> | string
   deliveryDate?: Prisma.DateTimeNullableFilter<"Purchase"> | Date | string | null
   bookedAt?: Prisma.DateTimeNullableFilter<"Purchase"> | Date | string | null
@@ -258,7 +258,7 @@ export type PurchaseWhereInput = {
 
 export type PurchaseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  purchaseNumber?: Prisma.SortOrder
+  purchaseNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   purchaseStatusId?: Prisma.SortOrder
   deliveryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   bookedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,7 +289,7 @@ export type PurchaseWhereUniqueInput = Prisma.AtLeast<{
 
 export type PurchaseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  purchaseNumber?: Prisma.SortOrder
+  purchaseNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   purchaseStatusId?: Prisma.SortOrder
   deliveryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   bookedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -309,7 +309,7 @@ export type PurchaseScalarWhereWithAggregatesInput = {
   OR?: Prisma.PurchaseScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PurchaseScalarWhereWithAggregatesInput | Prisma.PurchaseScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Purchase"> | string
-  purchaseNumber?: Prisma.StringWithAggregatesFilter<"Purchase"> | string
+  purchaseNumber?: Prisma.StringNullableWithAggregatesFilter<"Purchase"> | string | null
   purchaseStatusId?: Prisma.StringWithAggregatesFilter<"Purchase"> | string
   deliveryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Purchase"> | Date | string | null
   bookedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Purchase"> | Date | string | null
@@ -321,7 +321,7 @@ export type PurchaseScalarWhereWithAggregatesInput = {
 
 export type PurchaseCreateInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
   createdAt?: Date | string
@@ -334,7 +334,7 @@ export type PurchaseCreateInput = {
 
 export type PurchaseUncheckedCreateInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   purchaseStatusId: string
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
@@ -347,7 +347,7 @@ export type PurchaseUncheckedCreateInput = {
 
 export type PurchaseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,7 +360,7 @@ export type PurchaseUpdateInput = {
 
 export type PurchaseUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purchaseStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -373,7 +373,7 @@ export type PurchaseUncheckedUpdateInput = {
 
 export type PurchaseCreateManyInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   purchaseStatusId: string
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
@@ -385,7 +385,7 @@ export type PurchaseCreateManyInput = {
 
 export type PurchaseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -396,7 +396,7 @@ export type PurchaseUpdateManyMutationInput = {
 
 export type PurchaseUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purchaseStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -525,7 +525,7 @@ export type PurchaseUpdateOneRequiredWithoutPurchaseItemsNestedInput = {
 
 export type PurchaseCreateWithoutPurchaseStatusInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
   createdAt?: Date | string
@@ -537,7 +537,7 @@ export type PurchaseCreateWithoutPurchaseStatusInput = {
 
 export type PurchaseUncheckedCreateWithoutPurchaseStatusInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
   createdAt?: Date | string
@@ -578,7 +578,7 @@ export type PurchaseScalarWhereInput = {
   OR?: Prisma.PurchaseScalarWhereInput[]
   NOT?: Prisma.PurchaseScalarWhereInput | Prisma.PurchaseScalarWhereInput[]
   id?: Prisma.StringFilter<"Purchase"> | string
-  purchaseNumber?: Prisma.StringFilter<"Purchase"> | string
+  purchaseNumber?: Prisma.StringNullableFilter<"Purchase"> | string | null
   purchaseStatusId?: Prisma.StringFilter<"Purchase"> | string
   deliveryDate?: Prisma.DateTimeNullableFilter<"Purchase"> | Date | string | null
   bookedAt?: Prisma.DateTimeNullableFilter<"Purchase"> | Date | string | null
@@ -590,7 +590,7 @@ export type PurchaseScalarWhereInput = {
 
 export type PurchaseCreateWithoutPurchaseItemsInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
   createdAt?: Date | string
@@ -602,7 +602,7 @@ export type PurchaseCreateWithoutPurchaseItemsInput = {
 
 export type PurchaseUncheckedCreateWithoutPurchaseItemsInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   purchaseStatusId: string
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
@@ -630,7 +630,7 @@ export type PurchaseUpdateToOneWithWhereWithoutPurchaseItemsInput = {
 
 export type PurchaseUpdateWithoutPurchaseItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -642,7 +642,7 @@ export type PurchaseUpdateWithoutPurchaseItemsInput = {
 
 export type PurchaseUncheckedUpdateWithoutPurchaseItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purchaseStatusId?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -654,7 +654,7 @@ export type PurchaseUncheckedUpdateWithoutPurchaseItemsInput = {
 
 export type PurchaseCreateManyPurchaseStatusInput = {
   id?: string
-  purchaseNumber: string
+  purchaseNumber?: string | null
   deliveryDate?: Date | string | null
   bookedAt?: Date | string | null
   createdAt?: Date | string
@@ -665,7 +665,7 @@ export type PurchaseCreateManyPurchaseStatusInput = {
 
 export type PurchaseUpdateWithoutPurchaseStatusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -677,7 +677,7 @@ export type PurchaseUpdateWithoutPurchaseStatusInput = {
 
 export type PurchaseUncheckedUpdateWithoutPurchaseStatusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -689,7 +689,7 @@ export type PurchaseUncheckedUpdateWithoutPurchaseStatusInput = {
 
 export type PurchaseUncheckedUpdateManyWithoutPurchaseStatusInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  purchaseNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bookedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -803,7 +803,7 @@ export type $PurchasePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    purchaseNumber: string
+    purchaseNumber: string | null
     purchaseStatusId: string
     deliveryDate: Date | null
     bookedAt: Date | null

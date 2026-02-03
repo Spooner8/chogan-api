@@ -30,11 +30,18 @@ export class PurchaseService {
   constructor(private db: PrismaService) {}
 
   async create(createPurchaseDto: CreatePurchaseDto) {
-    const { items, ...purchaseData } = createPurchaseDto;
+    const { items, purchaseNumber, ...purchaseData } = createPurchaseDto;
 
     return await this.db.purchase.create({
       data: {
         ...purchaseData,
+        // Convert empty string to null for unique constraint
+        purchaseNumber:
+          purchaseNumber &&
+          typeof purchaseNumber === 'string' &&
+          purchaseNumber.trim() !== ''
+            ? purchaseNumber
+            : null,
         purchaseItems: items
           ? {
               create: items.map((item) => ({
