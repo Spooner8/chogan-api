@@ -18,7 +18,14 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prisma:seed": "ts-node prisma/seed.ts"
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "version:patch": "npm version patch && git push && git push --tags",
+    "version:minor": "npm version minor && git push && git push --tags",
+    "version:major": "npm version major && git push && git push --tags",
+    "docker:build": "docker build --no-cache -t spoonersl/chogan-api:latest .",
+    "docker:run": "docker run -p 3002:3002 spoonersl/chogan-api",
+    "docker:push": "docker push spoonersl/chogan-api:latest",
+    "docker:release": "npm run docker:build && npm run docker:push"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
