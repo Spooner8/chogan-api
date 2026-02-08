@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -44,5 +45,10 @@ export class CategoryController {
     @Body() updateCategoryDto: CategoryUpdateInput,
   ) {
     return await this.categoryService.update(id, updateCategoryDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return await this.categoryService.remove(id);
   }
 }
